@@ -54,7 +54,7 @@ rm -rfv /etc/letsencrypt/* || true
 rm -rfv /etc/letsencrypt/.git || true
 
 # Add git credentials.
-git config --global user.email "certbot-linode-stored-in-github@example.com
+git config --global user.email "certbot-linode-stored-in-github@example.com"
 git config --global user.name "Docker Container"
 
 
