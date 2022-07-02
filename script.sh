@@ -60,7 +60,7 @@ git config --global user.name "Docker Container"
 
 
 
-ssh-agent bash -c 'ssh-add /root/.ssh/KEYPAIR_PRIVATE; git clone --depth 1 $GIT_URL -b master /etc/letsencrypt'
+ssh-agent bash /git-clone-certificate-repo.sh
 
 certbot \
 	certonly --dns-linode \
@@ -80,7 +80,7 @@ cd /etc/letsencrypt
 git add -v * || echo "git was unable to add"
 git commit -v -m "Update Container Changes @ $(date -u +"%Y-%m-%dT%H:%M:%SZ") " || echo "git was unable to commit"
 
-ssh-agent bash -c 'ssh-add /root/.ssh/KEYPAIR_PRIVATE; git push origin master || echo "git was unable to push"'
+ssh-agent bash /git-push-certificate-repo.sh
 
 
 
