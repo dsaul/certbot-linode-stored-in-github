@@ -12,7 +12,7 @@ services:
       - EMAIL_ADDR=
       - LINODE_API_KEY=
       - GIT_URL=
-      - ID_RSA_SECRET_FILE=/var/run/secrets/ID_RSA
-      - ID_RSA_PUB_SECRET_FILE=/var/run/secrets/ID_RSA_PUB
+      - KEYPAIR_PRIVATE_FILE=/var/run/secrets/ID_RSA
+      - KEYPAIR_PUBLIC_FILE=/var/run/secrets/ID_RSA_PUB
     volumes:
       - ./secrets-domain:/var/run/secrets

@@ -25,13 +25,13 @@ if [ -z ${GIT_URL+x} ];
 fi
 
 if [ -z ${ID_RSA_SECRET_FILE+x} ];
-	then echo "ID_RSA_SECRET_FILE is not set" && exit 1;
-	else echo "ID_RSA_SECRET_FILE = '$ID_RSA_SECRET_FILE'";
+	then echo "KEYPAIR_PRIVATE_FILE is not set" && exit 1;
+	else echo "KEYPAIR_PRIVATE_FILE = '$KEYPAIR_PRIVATE_FILE'";
 fi
 
 if [ -z ${ID_RSA_PUB_SECRET_FILE+x} ];
-	then echo "ID_RSA_PUB_SECRET_FILE is not set" && exit 1;
-	else echo "ID_RSA_PUB_SECRET_FILE = '$ID_RSA_PUB_SECRET_FILE'";
+	then echo "KEYPAIR_PUBLIC_FILE is not set" && exit 1;
+	else echo "KEYPAIR_PUBLIC_FILE = '$KEYPAIR_PUBLIC_FILE'";
 fi
 
 echo "dns_linode_key = $LINODE_API_KEY" > /tmp/linode.ini
