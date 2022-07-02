@@ -35,12 +35,14 @@ if [ -z ${KEYPAIR_PUBLIC_FILE+x} ];
 fi
 
 
-ssh-keyscan github.com >> ~/.ssh/known_hosts
+
 
 # Make sure we have the secret files in position.
 rm ~/.ssh/* || true
 cp $KEYPAIR_PRIVATE_FILE ~/.ssh/KEYPAIR_PRIVATE
 cp $KEYPAIR_PUBLIC_FILE ~/.ssh/KEYPAIR_PUBLIC
+
+ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 # Correct ssh permissions
 chmod go-w ~/ || true
