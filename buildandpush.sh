@@ -7,7 +7,7 @@ set -o pipefail
 # Change Directory to script directory.
 cd $(dirname "${BASH_SOURCE[0]}")
 
-IMAGENAME="certbot-linode"
+IMAGENAME="certbot-linode-stored-in-github"
 TAGNAME="$(date +'%Y-%m-%d.%H-%M-%S.%N')" 
 TAGNAME2="$(date +'%Y-%m-%d')" 
 docker image build --no-cache \
