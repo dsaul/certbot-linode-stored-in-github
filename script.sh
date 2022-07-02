@@ -24,28 +24,28 @@ if [ -z ${GIT_URL+x} ];
 	else echo "GIT_URL = '$GIT_URL'";
 fi
 
-if [ -z ${ID_RSA_SECRET_FILE+x} ];
-	then echo "ID_RSA_SECRET_FILE is not set" && exit 1;
-	else echo "ID_RSA_SECRET_FILE = '$ID_RSA_SECRET_FILE'";
+if [ -z ${KEYPAIR_PRIVATE_FILE+x} ];
+	then echo "KEYPAIR_PRIVATE_FILE is not set" && exit 1;
+	else echo "KEYPAIR_PRIVATE_FILE = '$KEYPAIR_PRIVATE_FILE'";
 fi
 
-if [ -z ${ID_RSA_PUB_SECRET_FILE+x} ];
-	then echo "ID_RSA_PUB_SECRET_FILE is not set" && exit 1;
-	else echo "ID_RSA_PUB_SECRET_FILE = '$ID_RSA_PUB_SECRET_FILE'";
+if [ -z ${KEYPAIR_PUBLIC_FILE+x} ];
+	then echo "KEYPAIR_PUBLIC_FILE is not set" && exit 1;
+	else echo "KEYPAIR_PUBLIC_FILE = '$KEYPAIR_PUBLIC_FILE'";
 fi
 
 
 ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 # Make sure we have the secret files in position.
-rm ~/.ssh/id_rsa ~/.ssh/id_rsa.pub || true
-cp $ID_RSA_SECRET_FILE ~/.ssh/id_rsa
-cp $ID_RSA_PUB_SECRET_FILE ~/.ssh/id_rsa.pub
+rm ~/.ssh/* || true
+cp $KEYPAIR_PRIVATE_FILE ~/.ssh/KEYPAIR_PRIVATE
+cp $KEYPAIR_PUBLIC_FILE ~/.ssh/KEYPAIR_PUBLIC
 
 # Correct ssh permissions
 chmod go-w ~/ || true
 chmod 700 ~/.ssh || true
-chmod 600 ~/.ssh/id_rsa || true
+chmod 600 ~/.ssh/KEYPAIR_PRIVATE || true
 chmod 600 /tmp/linode.ini || true
 
 # Clear our the lets encrypt directory.
@@ -54,13 +54,13 @@ rm -rfv /etc/letsencrypt/* || true
 rm -rfv /etc/letsencrypt/.git || true
 
 # Add git credentials.
-git config --global user.email "servers@dispatchpulse.com"
+git config --global user.email "certbot-linode-stored-in-github@example.com
 git config --global user.name "Docker Container"
 
-git clone --depth 1 $GIT_URL -b master /etc/letsencrypt
 
 
 
+ssh-agent bash -c 'ssh-add /root/.ssh/KEYPAIR_PRIVATE; git clone --depth 1 $GIT_URL -b master /etc/letsencrypt'
 
 certbot \
 	certonly --dns-linode \
@@ -79,6 +79,9 @@ certbot \
 cd /etc/letsencrypt
 git add -v * || echo "git was unable to add"
 git commit -v -m "Update Container Changes @ $(date -u +"%Y-%m-%dT%H:%M:%SZ") " || echo "git was unable to commit"
-git push origin master || echo "git was unable to push"
+
+ssh-agent bash -c 'ssh-add /root/.ssh/KEYPAIR_PRIVATE; git push origin master || echo "git was unable to push"'
+
+
 
 
