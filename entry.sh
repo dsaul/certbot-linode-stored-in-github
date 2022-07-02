@@ -24,12 +24,12 @@ if [ -z ${GIT_URL+x} ];
 	else echo "GIT_URL = '$GIT_URL'";
 fi
 
-if [ -z ${ID_RSA_SECRET_FILE+x} ];
+if [ -z ${KEYPAIR_PRIVATE_FILE+x} ];
 	then echo "KEYPAIR_PRIVATE_FILE is not set" && exit 1;
 	else echo "KEYPAIR_PRIVATE_FILE = '$KEYPAIR_PRIVATE_FILE'";
 fi
 
-if [ -z ${ID_RSA_PUB_SECRET_FILE+x} ];
+if [ -z ${KEYPAIR_PUBLIC_FILE+x} ];
 	then echo "KEYPAIR_PUBLIC_FILE is not set" && exit 1;
 	else echo "KEYPAIR_PUBLIC_FILE = '$KEYPAIR_PUBLIC_FILE'";
 fi
